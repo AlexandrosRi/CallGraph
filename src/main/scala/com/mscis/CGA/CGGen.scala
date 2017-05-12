@@ -6,7 +6,8 @@ import com.mscis.CGA.CGUtils._
 import org.apache.spark.{SparkConf, SparkContext, graphx}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.graphx._
-import org.apache.spark.sql._
+//import org.apache.spark.sql._
+//this is a comment
 
 object CGGen {
   def main(args: Array[String]) {
@@ -14,6 +15,7 @@ object CGGen {
     val conf = new SparkConf().setAppName("CGGen")
     val sc = new SparkContext(conf)
     val inputSM = "/home/alx/dpl/input"
+    val outputSM = "/home/alx/dpl/output"
 
     def getInfo(javaContent: String): List[String] = {
 
@@ -47,24 +49,52 @@ object CGGen {
     val allVertices = cmVertices.union(invocVertices)
 
 
-    val edges: RDD[Edge[String]] = inform.flatMap { x =>
+    val edgesDecl: RDD[Edge[String]] = inform.flatMap { x =>
       val srcVid = vertexHash(x.classFQName)
       x.declaredMethods.map { dMeth =>
         val dstVid = vertexHash(dMeth)
         Edge(srcVid, dstVid, "declares method")
       }
+    }
+
+    val edgesInv: RDD[Edge[String]] = inform.flatMap { x =>
+      val srcVid = vertexHash(x.classFQName)
       x.invokedMethods.map({ iMeth =>
         val dstVid = vertexHash(iMeth)
         Edge(srcVid, dstVid, "invokes method")
       })
     }
 
-
+    val edges = edgesDecl.union(edgesInv)
 
     val defaultCon = "a"
+
+
+
     val finalGraph = Graph(allVertices, edges, defaultCon)
 
+
+    finalGraph.triplets.saveAsTextFile(outputSM)
+
+    /*
+    results in the form
+    ((-2147467271,/home/alx/dpl/input/src/java/org/apache/fop/pdf/PDFXMode),(-1960642174,public static PDFXMode getValueOf(String)),declares method)
+    ((-2147467271,/home/alx/dpl/input/src/java/org/apache/fop/pdf/PDFXMode),(-881418252,Some(public String getName()),declares method)
+    ((-2147467271,/home/alx/dpl/input/src/java/org/apache/fop/pdf/PDFXMode),(-293337209,public String toString()),declares method)
+    ((-2141090230,/home/alx/dpl/input/src/java/org/apache/fop/area/inline/InlineParent),(102230,get),invokes method)
+    ((-2141090230,/home/alx/dpl/input/src/java/org/apache/fop/area/inline/InlineParent),(107876,max),invokes method)
+    ((-2141090230,/home/alx/dpl/input/src/java/org/apache/fop/area/inline/InlineParent),(108114,min),invokes method)
+     */
+
+    /*
+    ********** DEBUG **************
+    val results = finalGraph.edges.count.toString + "\n" + finalGraph.edges.collect.take(5).mkString("\n")
+
+    println(finalGraph.edges.count)
     println(finalGraph.edges.collect.take(5).mkString("\n"))
 
+
+    println(results)
+    */
   }
 }
