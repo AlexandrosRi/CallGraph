@@ -14,8 +14,11 @@ object CGGen {
 
     val conf = new SparkConf().setAppName("CGGen")
     val sc = new SparkContext(conf)
+
+    val hdfsServ = "192.168.1.9"
+    val hdfspath = "hdfs://" + hdfsServ + ":9000/user/hduser/"
     val inputSM = "/home/alx/dpl/input"
-    val outputSM = "/home/alx/dpl/output"
+    val outputSM = hdfspath +  "output"
 
     def getInfo(javaContent: String): List[String] = {
 
