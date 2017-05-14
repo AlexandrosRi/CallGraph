@@ -7,7 +7,6 @@ sbt package
 
 # clear files from previous executions
 # rm -rf output > /dev/null 2>&1
-# hdfs dfs -rm -R -skipTrash input > /dev/null 2>&1
 # hdfs dfs -rm -R -skipTrash outputSeq > /dev/null 2>&1
 # hdfs dfs -rm -R -skipTrash outputTxt > /dev/null 2>&1
 
