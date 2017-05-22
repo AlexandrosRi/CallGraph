@@ -3,6 +3,7 @@ package com.mscis.CGA
 import java.nio.file.{Files, Path, Paths}
 import java.util.stream.Collectors
 
+import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.{ClassOrInterfaceDeclaration, MethodDeclaration}
 import com.github.javaparser.ast.expr.MethodCallExpr
@@ -40,6 +41,13 @@ object CGUtils {
     }
   }
 
+  def getInfo(javaContent: String): List[String] = {
+
+    val cu: CompilationUnit = JavaParser.parse(javaContent)
+
+    getInfoOutOfCU(cu)
+  }
+
   def getInfoOutOfCU(cu: CompilationUnit):List[String] = {
 
     val classNodes = cu.getChildNodesByType(classOf[ClassOrInterfaceDeclaration]).asScala.toList
@@ -54,7 +62,13 @@ object CGUtils {
     clsssI +=":"
 
     for (meth <- methodNodes){
-      clsssI += meth.getDeclarationAsString(true,false,false) + "-----"
+//      clsssI += meth.getDeclarationAsString(true,false,false) + "-----"
+      clsssI += meth.getName + ";;;"
+      clsssI += meth.getType + ";;;"
+      clsssI += meth.getModifiers.toString + ";;;"
+      clsssI += meth.getParameters.toArray.mkString(",")
+      clsssI.stripSuffix(",")
+      clsssI += "-----"
     }
     clsssI +=":"
 
@@ -70,4 +84,30 @@ object CGUtils {
     name.toLowerCase.replace(" ", "").hashCode.toLong
   }
 
+  case class declData(mName: String, mType: String = "No Type", mMods: String = "No mods", mPar: List[String] = List("No pars"))
+  def getDeclInfo(declAsString: List[String]): List[declData] = {
+    val declInfo: List[declData] = declAsString.map(x => {
+      x.split(";;;").length match{
+        case 4 =>
+          val xName = x.split(";;;")(0)
+          val xType = x.split(";;;")(1)
+          val xMods = x.split(";;;")(2)
+          val xPars = x.split(";;;")(3).split(",").toList
+          declData(xName, xType, xMods, xPars)
+        case 3 =>
+          val xName = x.split(";;;")(0)
+          val xType = x.split(";;;")(1)
+          val xMods = x.split(";;;")(2)
+          declData(xName, xType, xMods)
+        case 2 =>
+          val xName = x.split(";;;")(0)
+          val xType = x.split(";;;")(1)
+          declData(xName, xType)
+        case 1 =>
+          val xName = x.split(";;;")(0)
+          declData(xName)
+      }
+    })
+    declInfo
+  }
 }
