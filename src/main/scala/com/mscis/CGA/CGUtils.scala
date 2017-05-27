@@ -110,4 +110,14 @@ object CGUtils {
     })
     declInfo
   }
+
+  def toDot(gra:Option[ClassData]) = {
+
+    val repName = gra.get.fqName
+    val repDecl = gra.get.attrs.map(x => repName + " -> " + x.mName + ";").mkString("\n")
+    val repInv = gra.get.attrs2.map(x => repName + " -> " + x + ";").mkString("\n")
+    val repFinal = "digraph G {\n" + repDecl + repInv +"}"
+
+    println(repFinal)
+  }
 }
