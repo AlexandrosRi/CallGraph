@@ -19,7 +19,8 @@ object CGGen {
     val conf = new SparkConf().setAppName("CGGen")
     val sc = new SparkContext(conf)
     val inputSM = "/home/alx/dpl/input"
-    val outputSM = "/home/alx/dpl/output"
+    val output = "/home/alx/dpl/output"
+    val output3 = "/home/alx/dpl/output3"
     log.info("got Info!")
 
     val inputdata = sc.parallelize(getContext(inputSM))
@@ -39,19 +40,19 @@ object CGGen {
 
     })
 
-    val classVertices = inform.map(x => (vertexHash(x.classFQName._1), x.classFQName._2))
+    val classVertices:RDD[(graphx.VertexId, (String,String))] = inform.map(x => (vertexHash(x.classFQName._1), (x.classFQName._2, "class")))
 
     val methodVerticesList = inform.flatMap(x => x.declaredMethods)
 
-    val methodVertices:RDD[(graphx.VertexId, String)] = methodVerticesList.map(x => (vertexHash(x.mMods+x.mType+x.mName+x.mPar), x.toString))
+    val methodVertices:RDD[(graphx.VertexId, (String,String))] = methodVerticesList.map(x => (vertexHash(x.mMods+x.mType+x.mName+x.mPar), (x.toString,"declaration")))
 
     val invocVerticesList = inform.flatMap(x => x.invokedMethods)
 
-    val invocVertices:RDD[(graphx.VertexId, String)] = invocVerticesList.map(x => (vertexHash(x), x))
+    val invocVertices:RDD[(graphx.VertexId, (String,String))] = invocVerticesList.map(x => (vertexHash(x), (x,"invocation")))
 
-    val cmVertices = classVertices.union(methodVertices)
+    val cmVertices:RDD[(graphx.VertexId, (String,String))]  = classVertices.union(methodVertices)
 
-    val allVertices = cmVertices.union(invocVertices)
+    val allVertices:RDD[(graphx.VertexId, (String,String))]  = cmVertices.union(invocVertices)
 
     val edgesInv: RDD[Edge[String]] = inform.flatMap { x =>
       val srcVid = vertexHash(x.classFQName._1)
@@ -72,13 +73,63 @@ object CGGen {
       }
     }
 
+//    classVertices.filter(x => x._2._2=="class")
+
     val edges = edgesNew.union(edgesInv)
 
-    val defaultCon = "a"
+    val defaultCon = ("a","A")
 
-    val finalGraph = Graph(allVertices, edges, defaultCon)
+    val finalGraph:Graph[(String,String), String] = Graph(allVertices, edges, defaultCon)
+    finalGraph.triplets.saveAsTextFile(output)
 
-    finalGraph.triplets.saveAsTextFile(outputSM)
+    val test = finalGraph.subgraph(vpred = (id, attr) => attr._1=="/TableCellLayoutManager")
+
+    val test2 = test.mapVertices( (id, attr) => )
+
+
+
+    val dotVert =finalGraph.aggregateMessages[String](
+      triplet =>  {triplet.sendToDst(triplet.srcAttr._1)},
+         (a,b) => (a + " -> " + b)
+    )
+    dotVert.saveAsTextFile(output3)
+
+
+
+
+    /*val initialMsg = "digraph G {\n"
+
+    def vprog(vertexId: VertexId, value:(String, String), message: String): String = {
+      if (value._2=="class"){
+        message + value._1 + " -> "
+      } else if (value._2=="invocation") {
+          if(message != initialMsg) {
+            message + value._1 + " -> "
+          } else
+            value._1 +"->"
+      }
+
+    }
+
+    def sendMsg() = {
+
+    }
+
+    def mergeMsg() = {
+
+    }
+
+    val sssp = finalGraph.pregel(initialMsg)(vprog, sendMsg, mergeMsg)*/
+
+
+    /*val graph1 = Graph.fromEdges(edgesInv, "a")
+
+    val graph2 = Graph.fromEdges(edgesNew, "a")
+
+    */
+
+
+
 
     /*
     results in the form
