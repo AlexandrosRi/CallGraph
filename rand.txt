@@ -1,0 +1,334 @@
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/06/02 14:08:36 INFO SparkContext: Running Spark version 2.1.0
+17/06/02 14:08:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/06/02 14:08:37 INFO SecurityManager: Changing view acls to: alx
+17/06/02 14:08:37 INFO SecurityManager: Changing modify acls to: alx
+17/06/02 14:08:37 INFO SecurityManager: Changing view acls groups to:
+17/06/02 14:08:37 INFO SecurityManager: Changing modify acls groups to:
+17/06/02 14:08:37 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(alx); groups with view permissions: Set(); users  with modify permissions: Set(alx); groups with modify permissions: Set()
+17/06/02 14:08:37 INFO Utils: Successfully started service 'sparkDriver' on port 38814.
+17/06/02 14:08:37 INFO SparkEnv: Registering MapOutputTracker
+17/06/02 14:08:37 INFO SparkEnv: Registering BlockManagerMaster
+17/06/02 14:08:37 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+17/06/02 14:08:37 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+17/06/02 14:08:38 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-d4c50317-4ac5-45e3-b008-5123c84c4c8c
+17/06/02 14:08:38 INFO MemoryStore: MemoryStore started with capacity 413.9 MB
+17/06/02 14:08:38 INFO SparkEnv: Registering OutputCommitCoordinator
+17/06/02 14:08:38 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+17/06/02 14:08:38 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://172.16.10.34:4040
+17/06/02 14:08:38 INFO SparkContext: Added JAR file:/home/alx/CallGraph/libs/javaparser-core-3.2.0.jar at spark://172.16.10.34:38814/jars/javaparser-core-3.2.0.jar with timestamp 1496401718550
+17/06/02 14:08:38 INFO SparkContext: Added JAR file:/home/alx/CallGraph/target/scala-2.11/callgraph_2.11-1.0.jar at spark://172.16.10.34:38814/jars/callgraph_2.11-1.0.jar with timestamp 1496401718551
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://172.16.10.34:7077...
+17/06/02 14:08:38 INFO TransportClientFactory: Successfully created connection to /172.16.10.34:7077 after 18 ms (0 ms spent in bootstraps)
+17/06/02 14:08:38 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20170602140838-0004
+17/06/02 14:08:38 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 46277.
+17/06/02 14:08:38 INFO NettyBlockTransferService: Server created on 172.16.10.34:46277
+17/06/02 14:08:38 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/06/02 14:08:38 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 172.16.10.34, 46277, None)
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20170602140838-0004/0 on worker-20170602122846-172.16.10.14-45286 (172.16.10.14:45286) with 2 cores
+17/06/02 14:08:38 INFO StandaloneSchedulerBackend: Granted executor ID app-20170602140838-0004/0 on hostPort 172.16.10.14:45286 with 2 cores, 1024.0 MB RAM
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20170602140838-0004/1 on worker-20170602123014-172.16.10.40-33633 (172.16.10.40:33633) with 2 cores
+17/06/02 14:08:38 INFO StandaloneSchedulerBackend: Granted executor ID app-20170602140838-0004/1 on hostPort 172.16.10.40:33633 with 2 cores, 1024.0 MB RAM
+17/06/02 14:08:38 INFO BlockManagerMasterEndpoint: Registering block manager 172.16.10.34:46277 with 413.9 MB RAM, BlockManagerId(driver, 172.16.10.34, 46277, None)
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20170602140838-0004/2 on worker-20170602133106-172.16.10.26-35115 (172.16.10.26:35115) with 2 cores
+17/06/02 14:08:38 INFO StandaloneSchedulerBackend: Granted executor ID app-20170602140838-0004/2 on hostPort 172.16.10.26:35115 with 2 cores, 1024.0 MB RAM
+17/06/02 14:08:38 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 172.16.10.34, 46277, None)
+17/06/02 14:08:38 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 172.16.10.34, 46277, None)
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20170602140838-0004/3 on worker-20170602133152-172.16.10.30-40568 (172.16.10.30:40568) with 2 cores
+17/06/02 14:08:38 INFO StandaloneSchedulerBackend: Granted executor ID app-20170602140838-0004/3 on hostPort 172.16.10.30:40568 with 2 cores, 1024.0 MB RAM
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20170602140838-0004/0 is now RUNNING
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20170602140838-0004/1 is now RUNNING
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20170602140838-0004/2 is now RUNNING
+17/06/02 14:08:38 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20170602140838-0004/3 is now RUNNING
+17/06/02 14:08:39 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+17/06/02 14:08:39 INFO root: got Info!
+17/06/02 14:08:40 INFO root: serialized Info!
+17/06/02 14:08:40 INFO SparkContext: Starting job: count at CGGen.scala:81
+17/06/02 14:08:40 INFO DAGScheduler: Got job 0 (count at CGGen.scala:81) with 2 output partitions
+17/06/02 14:08:40 INFO DAGScheduler: Final stage: ResultStage 0 (count at CGGen.scala:81)
+17/06/02 14:08:40 INFO DAGScheduler: Parents of final stage: List()
+17/06/02 14:08:40 INFO DAGScheduler: Missing parents: List()
+17/06/02 14:08:40 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[10] at flatMap at CGGen.scala:70), which has no missing parents
+17/06/02 14:08:40 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 2.2 KB, free 413.9 MB)
+17/06/02 14:08:40 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (172.16.10.30:35164) with ID 3
+17/06/02 14:08:41 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 1431.0 B, free 413.9 MB)
+17/06/02 14:08:41 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.16.10.34:46277 (size: 1431.0 B, free: 413.9 MB)
+17/06/02 14:08:41 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:996
+17/06/02 14:08:41 INFO BlockManagerMasterEndpoint: Registering block manager 172.16.10.30:40242 with 366.3 MB RAM, BlockManagerId(3, 172.16.10.30, 40242, None)
+17/06/02 14:08:41 INFO DAGScheduler: Submitting 2 missing tasks from ResultStage 0 (MapPartitionsRDD[10] at flatMap at CGGen.scala:70)
+17/06/02 14:08:41 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (172.16.10.14:55282) with ID 0
+17/06/02 14:08:41 INFO TaskSchedulerImpl: Adding task set 0.0 with 2 tasks
+17/06/02 14:08:41 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (172.16.10.26:47820) with ID 2
+17/06/02 14:08:41 INFO BlockManagerMasterEndpoint: Registering block manager 172.16.10.14:37037 with 366.3 MB RAM, BlockManagerId(0, 172.16.10.14, 37037, None)
+17/06/02 14:08:41 INFO BlockManagerMasterEndpoint: Registering block manager 172.16.10.26:38201 with 366.3 MB RAM, BlockManagerId(2, 172.16.10.26, 38201, None)
+17/06/02 14:08:41 WARN TaskSetManager: Stage 0 contains a task of very large size (6862 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:08:41 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, 172.16.10.14, executor 0, partition 0, PROCESS_LOCAL, 7027542 bytes)
+17/06/02 14:08:41 INFO TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1, 172.16.10.30, executor 3, partition 1, PROCESS_LOCAL, 6348170 bytes)
+17/06/02 14:08:41 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (172.16.10.40:42516) with ID 1
+17/06/02 14:08:41 INFO BlockManagerMasterEndpoint: Registering block manager 172.16.10.40:36920 with 366.3 MB RAM, BlockManagerId(1, 172.16.10.40, 36920, None)
+17/06/02 14:08:41 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.16.10.14:37037 (size: 1431.0 B, free: 366.3 MB)
+17/06/02 14:08:42 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.16.10.30:40242 (size: 1431.0 B, free: 366.3 MB)
+17/06/02 14:08:48 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 7143 ms on 172.16.10.14 (executor 0) (1/2)
+17/06/02 14:08:48 INFO DAGScheduler: ResultStage 0 (count at CGGen.scala:81) finished in 7.574 s
+17/06/02 14:08:48 INFO TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 7381 ms on 172.16.10.30 (executor 3) (2/2)
+17/06/02 14:08:48 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool
+17/06/02 14:08:48 INFO DAGScheduler: Job 0 finished: count at CGGen.scala:81, took 8.147358 s
+17/06/02 14:08:48 INFO root: edges Decl count: 21672
+17/06/02 14:08:49 INFO deprecation: mapred.tip.id is deprecated. Instead, use mapreduce.task.id
+17/06/02 14:08:49 INFO deprecation: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+17/06/02 14:08:49 INFO deprecation: mapred.task.is.map is deprecated. Instead, use mapreduce.task.ismap
+17/06/02 14:08:49 INFO deprecation: mapred.task.partition is deprecated. Instead, use mapreduce.task.partition
+17/06/02 14:08:49 INFO deprecation: mapred.job.id is deprecated. Instead, use mapreduce.job.id
+17/06/02 14:08:49 INFO FileOutputCommitter: File Output Committer Algorithm version is 1
+17/06/02 14:08:49 INFO SparkContext: Starting job: saveAsTextFile at CGGen.scala:89
+17/06/02 14:08:49 INFO DAGScheduler: Registering RDD 8 (union at CGGen.scala:60)
+17/06/02 14:08:49 INFO DAGScheduler: Registering RDD 16 (mapPartitions at VertexRDD.scala:356)
+17/06/02 14:08:49 INFO DAGScheduler: Registering RDD 24 (mapPartitions at VertexRDDImpl.scala:247)
+17/06/02 14:08:49 INFO DAGScheduler: Got job 1 (saveAsTextFile at CGGen.scala:89) with 4 output partitions
+17/06/02 14:08:49 INFO DAGScheduler: Final stage: ResultStage 4 (saveAsTextFile at CGGen.scala:89)
+17/06/02 14:08:49 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 3)
+17/06/02 14:08:49 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 3)
+17/06/02 14:08:49 INFO DAGScheduler: Submitting ShuffleMapStage 1 (UnionRDD[8] at union at CGGen.scala:60), which has no missing parents
+17/06/02 14:08:49 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 4.1 KB, free 413.9 MB)
+17/06/02 14:08:49 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 2.4 KB, free 413.9 MB)
+17/06/02 14:08:49 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.16.10.34:46277 (size: 2.4 KB, free: 413.9 MB)
+17/06/02 14:08:49 INFO SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:996
+17/06/02 14:08:49 INFO DAGScheduler: Submitting 6 missing tasks from ShuffleMapStage 1 (UnionRDD[8] at union at CGGen.scala:60)
+17/06/02 14:08:49 INFO TaskSchedulerImpl: Adding task set 1.0 with 6 tasks
+17/06/02 14:08:49 INFO DAGScheduler: Submitting ShuffleMapStage 2 (VertexRDD.createRoutingTables - vid2pid (aggregation) MapPartitionsRDD[16] at mapPartitions at VertexRDD.scala:356), which has no missing parents
+17/06/02 14:08:49 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 4.4 KB, free 413.9 MB)
+17/06/02 14:08:49 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 2.6 KB, free 413.9 MB)
+17/06/02 14:08:49 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.16.10.34:46277 (size: 2.6 KB, free: 413.9 MB)
+17/06/02 14:08:49 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:996
+17/06/02 14:08:49 INFO DAGScheduler: Submitting 4 missing tasks from ShuffleMapStage 2 (VertexRDD.createRoutingTables - vid2pid (aggregation) MapPartitionsRDD[16] at mapPartitions at VertexRDD.scala:356)
+17/06/02 14:08:49 INFO TaskSchedulerImpl: Adding task set 2.0 with 4 tasks
+17/06/02 14:08:49 WARN TaskSetManager: Stage 1 contains a task of very large size (6863 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:08:49 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 2, 172.16.10.40, executor 1, partition 0, PROCESS_LOCAL, 7027747 bytes)
+17/06/02 14:08:49 INFO TaskSetManager: Starting task 1.0 in stage 1.0 (TID 3, 172.16.10.26, executor 2, partition 1, PROCESS_LOCAL, 6348375 bytes)
+17/06/02 14:08:49 INFO TaskSetManager: Starting task 2.0 in stage 1.0 (TID 4, 172.16.10.14, executor 0, partition 2, PROCESS_LOCAL, 7027747 bytes)
+17/06/02 14:08:50 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 172.16.10.14:37037 in memory (size: 1431.0 B, free: 366.3 MB)
+17/06/02 14:08:50 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 172.16.10.30:40242 in memory (size: 1431.0 B, free: 366.3 MB)
+17/06/02 14:08:50 INFO TaskSetManager: Starting task 3.0 in stage 1.0 (TID 5, 172.16.10.30, executor 3, partition 3, PROCESS_LOCAL, 6348375 bytes)
+17/06/02 14:08:50 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 172.16.10.34:46277 in memory (size: 1431.0 B, free: 413.9 MB)
+17/06/02 14:08:50 INFO TaskSetManager: Starting task 4.0 in stage 1.0 (TID 6, 172.16.10.40, executor 1, partition 4, PROCESS_LOCAL, 7027732 bytes)
+17/06/02 14:08:50 INFO TaskSetManager: Starting task 5.0 in stage 1.0 (TID 7, 172.16.10.26, executor 2, partition 5, PROCESS_LOCAL, 6348360 bytes)
+17/06/02 14:08:50 WARN TaskSetManager: Stage 2 contains a task of very large size (6863 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:08:50 INFO TaskSetManager: Starting task 0.0 in stage 2.0 (TID 8, 172.16.10.30, executor 3, partition 0, PROCESS_LOCAL, 7027732 bytes)
+17/06/02 14:08:50 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.16.10.14:37037 (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:08:50 INFO TaskSetManager: Starting task 1.0 in stage 2.0 (TID 9, 172.16.10.14, executor 0, partition 1, PROCESS_LOCAL, 6348360 bytes)
+17/06/02 14:08:50 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.16.10.14:37037 (size: 2.6 KB, free: 366.3 MB)
+17/06/02 14:08:51 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.16.10.40:36920 (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:08:52 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.16.10.30:40242 (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:08:52 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.16.10.30:40242 (size: 2.6 KB, free: 366.3 MB)
+17/06/02 14:08:53 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.16.10.26:38201 (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:09:00 INFO TaskSetManager: Starting task 2.0 in stage 2.0 (TID 10, 172.16.10.14, executor 0, partition 2, PROCESS_LOCAL, 7027732 bytes)
+17/06/02 14:09:00 INFO TaskSetManager: Finished task 2.0 in stage 1.0 (TID 4) in 10813 ms on 172.16.10.14 (executor 0) (1/6)
+17/06/02 14:09:00 INFO TaskSetManager: Starting task 3.0 in stage 2.0 (TID 11, 172.16.10.14, executor 0, partition 3, PROCESS_LOCAL, 6348360 bytes)
+17/06/02 14:09:00 INFO TaskSetManager: Finished task 1.0 in stage 2.0 (TID 9) in 10281 ms on 172.16.10.14 (executor 0) (1/4)
+17/06/02 14:09:02 INFO TaskSetManager: Finished task 3.0 in stage 1.0 (TID 5) in 12308 ms on 172.16.10.30 (executor 3) (2/6)
+17/06/02 14:09:03 INFO TaskSetManager: Finished task 0.0 in stage 2.0 (TID 8) in 12935 ms on 172.16.10.30 (executor 3) (2/4)
+17/06/02 14:09:03 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 2) in 13777 ms on 172.16.10.40 (executor 1) (3/6)
+17/06/02 14:09:03 INFO TaskSetManager: Finished task 4.0 in stage 1.0 (TID 6) in 13518 ms on 172.16.10.40 (executor 1) (4/6)
+17/06/02 14:09:05 INFO TaskSetManager: Finished task 5.0 in stage 1.0 (TID 7) in 15164 ms on 172.16.10.26 (executor 2) (5/6)
+17/06/02 14:09:05 INFO TaskSetManager: Finished task 1.0 in stage 1.0 (TID 3) in 15519 ms on 172.16.10.26 (executor 2) (6/6)
+17/06/02 14:09:05 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool
+17/06/02 14:09:05 INFO DAGScheduler: ShuffleMapStage 1 (union at CGGen.scala:60) finished in 15.578 s
+17/06/02 14:09:05 INFO DAGScheduler: looking for newly runnable stages
+17/06/02 14:09:05 INFO DAGScheduler: running: Set(ShuffleMapStage 2)
+17/06/02 14:09:05 INFO DAGScheduler: waiting: Set(ShuffleMapStage 3, ResultStage 4)
+17/06/02 14:09:05 INFO DAGScheduler: failed: Set()
+17/06/02 14:09:08 INFO TaskSetManager: Finished task 2.0 in stage 2.0 (TID 10) in 7932 ms on 172.16.10.14 (executor 0) (3/4)
+17/06/02 14:09:08 INFO TaskSetManager: Finished task 3.0 in stage 2.0 (TID 11) in 7839 ms on 172.16.10.14 (executor 0) (4/4)
+17/06/02 14:09:08 INFO TaskSchedulerImpl: Removed TaskSet 2.0, whose tasks have all completed, from pool
+17/06/02 14:09:08 INFO DAGScheduler: ShuffleMapStage 2 (mapPartitions at VertexRDD.scala:356) finished in 18.448 s
+17/06/02 14:09:08 INFO DAGScheduler: looking for newly runnable stages
+17/06/02 14:09:08 INFO DAGScheduler: running: Set()
+17/06/02 14:09:08 INFO DAGScheduler: waiting: Set(ShuffleMapStage 3, ResultStage 4)
+17/06/02 14:09:08 INFO DAGScheduler: failed: Set()
+17/06/02 14:09:08 INFO DAGScheduler: Submitting ShuffleMapStage 3 (ReplicatedVertexView.upgrade(true, true) - shippedVerts true true (broadcast) MapPartitionsRDD[24] at mapPartitions at VertexRDDImpl.scala:247), which has no missing parents
+17/06/02 14:09:08 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 4.7 KB, free 413.9 MB)
+17/06/02 14:09:08 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 2.7 KB, free 413.9 MB)
+17/06/02 14:09:08 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.16.10.34:46277 (size: 2.7 KB, free: 413.9 MB)
+17/06/02 14:09:08 INFO SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:996
+17/06/02 14:09:08 INFO DAGScheduler: Submitting 6 missing tasks from ShuffleMapStage 3 (ReplicatedVertexView.upgrade(true, true) - shippedVerts true true (broadcast) MapPartitionsRDD[24] at mapPartitions at VertexRDDImpl.scala:247)
+17/06/02 14:09:08 INFO TaskSchedulerImpl: Adding task set 3.0 with 6 tasks
+17/06/02 14:09:08 INFO TaskSetManager: Starting task 0.0 in stage 3.0 (TID 12, 172.16.10.26, executor 2, partition 0, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:08 INFO TaskSetManager: Starting task 1.0 in stage 3.0 (TID 13, 172.16.10.40, executor 1, partition 1, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:08 INFO TaskSetManager: Starting task 2.0 in stage 3.0 (TID 14, 172.16.10.26, executor 2, partition 2, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:08 INFO TaskSetManager: Starting task 3.0 in stage 3.0 (TID 15, 172.16.10.40, executor 1, partition 3, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:08 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.16.10.26:38201 (size: 2.7 KB, free: 366.3 MB)
+17/06/02 14:09:08 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.16.10.40:36920 (size: 2.7 KB, free: 366.3 MB)
+17/06/02 14:09:08 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 1 to 172.16.10.26:47820
+17/06/02 14:09:08 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 1 is 219 bytes
+17/06/02 14:09:08 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 1 to 172.16.10.40:42516
+17/06/02 14:09:08 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 2 to 172.16.10.26:47820
+17/06/02 14:09:08 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 2 is 183 bytes
+17/06/02 14:09:08 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 2 to 172.16.10.40:42516
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_0 in memory on 172.16.10.26:38201 (size: 2.3 MB, free: 364.0 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_2 in memory on 172.16.10.26:38201 (size: 2.2 MB, free: 361.8 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_3 in memory on 172.16.10.40:36920 (size: 2.2 MB, free: 364.1 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_1 in memory on 172.16.10.40:36920 (size: 2.0 MB, free: 362.0 MB)
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 4.0 in stage 3.0 (TID 16, 172.16.10.26, executor 2, partition 4, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 0.0 in stage 3.0 (TID 12) in 740 ms on 172.16.10.26 (executor 2) (1/6)
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 5.0 in stage 3.0 (TID 17, 172.16.10.26, executor 2, partition 5, NODE_LOCAL, 6202 bytes)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 2.0 in stage 3.0 (TID 14) in 773 ms on 172.16.10.26 (executor 2) (2/6)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 3.0 in stage 3.0 (TID 15) in 777 ms on 172.16.10.40 (executor 1) (3/6)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 1.0 in stage 3.0 (TID 13) in 787 ms on 172.16.10.40 (executor 1) (4/6)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_5 in memory on 172.16.10.26:38201 (size: 2.2 MB, free: 359.6 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added rdd_19_4 in memory on 172.16.10.26:38201 (size: 2.1 MB, free: 357.4 MB)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 5.0 in stage 3.0 (TID 17) in 203 ms on 172.16.10.26 (executor 2) (5/6)
+17/06/02 14:09:09 INFO TaskSetManager: Finished task 4.0 in stage 3.0 (TID 16) in 259 ms on 172.16.10.26 (executor 2) (6/6)
+17/06/02 14:09:09 INFO TaskSchedulerImpl: Removed TaskSet 3.0, whose tasks have all completed, from pool
+17/06/02 14:09:09 INFO DAGScheduler: ShuffleMapStage 3 (mapPartitions at VertexRDDImpl.scala:247) finished in 0.993 s
+17/06/02 14:09:09 INFO DAGScheduler: looking for newly runnable stages
+17/06/02 14:09:09 INFO DAGScheduler: running: Set()
+17/06/02 14:09:09 INFO DAGScheduler: waiting: Set(ResultStage 4)
+17/06/02 14:09:09 INFO DAGScheduler: failed: Set()
+17/06/02 14:09:09 INFO DAGScheduler: Submitting ResultStage 4 (MapPartitionsRDD[29] at saveAsTextFile at CGGen.scala:89), which has no missing parents
+17/06/02 14:09:09 INFO MemoryStore: Block broadcast_4 stored as values in memory (estimated size 75.2 KB, free 413.8 MB)
+17/06/02 14:09:09 INFO MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 27.5 KB, free 413.8 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Added broadcast_4_piece0 in memory on 172.16.10.34:46277 (size: 27.5 KB, free: 413.9 MB)
+17/06/02 14:09:09 INFO SparkContext: Created broadcast 4 from broadcast at DAGScheduler.scala:996
+17/06/02 14:09:09 INFO DAGScheduler: Submitting 4 missing tasks from ResultStage 4 (MapPartitionsRDD[29] at saveAsTextFile at CGGen.scala:89)
+17/06/02 14:09:09 INFO TaskSchedulerImpl: Adding task set 4.0 with 4 tasks
+17/06/02 14:09:09 INFO BlockManagerInfo: Removed broadcast_3_piece0 on 172.16.10.34:46277 in memory (size: 2.7 KB, free: 413.9 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Removed broadcast_3_piece0 on 172.16.10.26:38201 in memory (size: 2.7 KB, free: 357.5 MB)
+17/06/02 14:09:09 INFO BlockManagerInfo: Removed broadcast_3_piece0 on 172.16.10.40:36920 in memory (size: 2.7 KB, free: 362.0 MB)
+17/06/02 14:09:09 WARN TaskSetManager: Stage 4 contains a task of very large size (6863 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 0.0 in stage 4.0 (TID 18, 172.16.10.40, executor 1, partition 0, NODE_LOCAL, 7028109 bytes)
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 1.0 in stage 4.0 (TID 19, 172.16.10.26, executor 2, partition 1, NODE_LOCAL, 6348737 bytes)
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 2.0 in stage 4.0 (TID 20, 172.16.10.40, executor 1, partition 2, NODE_LOCAL, 7028109 bytes)
+17/06/02 14:09:09 INFO TaskSetManager: Starting task 3.0 in stage 4.0 (TID 21, 172.16.10.26, executor 2, partition 3, NODE_LOCAL, 6348737 bytes)
+17/06/02 14:09:10 INFO BlockManagerInfo: Added broadcast_4_piece0 in memory on 172.16.10.40:36920 (size: 27.5 KB, free: 362.0 MB)
+17/06/02 14:09:11 INFO BlockManagerInfo: Added broadcast_4_piece0 in memory on 172.16.10.26:38201 (size: 27.5 KB, free: 357.4 MB)
+17/06/02 14:09:17 INFO BlockManagerInfo: Added rdd_22_0 in memory on 172.16.10.40:36920 (size: 934.3 KB, free: 361.1 MB)
+17/06/02 14:09:17 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to 172.16.10.40:42516
+17/06/02 14:09:17 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 0 is 182 bytes
+17/06/02 14:09:18 INFO BlockManagerInfo: Added rdd_22_2 in memory on 172.16.10.40:36920 (size: 1767.8 KB, free: 359.4 MB)
+17/06/02 14:09:18 INFO BlockManagerInfo: Added rdd_22_1 in memory on 172.16.10.26:38201 (size: 632.2 KB, free: 356.8 MB)
+17/06/02 14:09:18 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to 172.16.10.26:47820
+17/06/02 14:09:18 INFO BlockManagerInfo: Added rdd_22_3 in memory on 172.16.10.26:38201 (size: 1730.8 KB, free: 355.1 MB)
+17/06/02 14:09:19 INFO TaskSetManager: Finished task 0.0 in stage 4.0 (TID 18) in 9569 ms on 172.16.10.40 (executor 1) (1/4)
+17/06/02 14:09:19 INFO TaskSetManager: Finished task 2.0 in stage 4.0 (TID 20) in 9916 ms on 172.16.10.40 (executor 1) (2/4)
+17/06/02 14:09:20 INFO TaskSetManager: Finished task 1.0 in stage 4.0 (TID 19) in 10372 ms on 172.16.10.26 (executor 2) (3/4)
+17/06/02 14:09:20 INFO TaskSetManager: Finished task 3.0 in stage 4.0 (TID 21) in 10856 ms on 172.16.10.26 (executor 2) (4/4)
+17/06/02 14:09:20 INFO TaskSchedulerImpl: Removed TaskSet 4.0, whose tasks have all completed, from pool
+17/06/02 14:09:20 INFO DAGScheduler: ResultStage 4 (saveAsTextFile at CGGen.scala:89) finished in 10.975 s
+17/06/02 14:09:20 INFO DAGScheduler: Job 1 finished: saveAsTextFile at CGGen.scala:89, took 30.879619 s
+17/06/02 14:09:20 INFO SparkContext: Starting job: collect at CGGen.scala:95
+17/06/02 14:09:20 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 1 is 219 bytes
+17/06/02 14:09:20 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 2 is 183 bytes
+17/06/02 14:09:20 INFO DAGScheduler: Got job 2 (collect at CGGen.scala:95) with 4 output partitions
+17/06/02 14:09:20 INFO DAGScheduler: Final stage: ResultStage 8 (collect at CGGen.scala:95)
+17/06/02 14:09:20 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 7)
+17/06/02 14:09:20 INFO DAGScheduler: Missing parents: List()
+17/06/02 14:09:20 INFO DAGScheduler: Submitting ResultStage 8 (MapPartitionsRDD[31] at map at CGGen.scala:95), which has no missing parents
+17/06/02 14:09:20 INFO MemoryStore: Block broadcast_5 stored as values in memory (estimated size 6.1 KB, free 413.8 MB)
+17/06/02 14:09:20 INFO MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 3.3 KB, free 413.8 MB)
+17/06/02 14:09:20 INFO BlockManagerInfo: Added broadcast_5_piece0 in memory on 172.16.10.34:46277 (size: 3.3 KB, free: 413.9 MB)
+17/06/02 14:09:20 INFO SparkContext: Created broadcast 5 from broadcast at DAGScheduler.scala:996
+17/06/02 14:09:20 INFO DAGScheduler: Submitting 4 missing tasks from ResultStage 8 (MapPartitionsRDD[31] at map at CGGen.scala:95)
+17/06/02 14:09:20 INFO TaskSchedulerImpl: Adding task set 8.0 with 4 tasks
+17/06/02 14:09:20 WARN TaskSetManager: Stage 8 contains a task of very large size (6863 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:09:20 INFO TaskSetManager: Starting task 0.0 in stage 8.0 (TID 22, 172.16.10.40, executor 1, partition 0, PROCESS_LOCAL, 7028102 bytes)
+17/06/02 14:09:20 INFO TaskSetManager: Starting task 1.0 in stage 8.0 (TID 23, 172.16.10.26, executor 2, partition 1, PROCESS_LOCAL, 6348730 bytes)
+17/06/02 14:09:20 INFO TaskSetManager: Starting task 2.0 in stage 8.0 (TID 24, 172.16.10.40, executor 1, partition 2, PROCESS_LOCAL, 7028102 bytes)
+17/06/02 14:09:20 INFO TaskSetManager: Starting task 3.0 in stage 8.0 (TID 25, 172.16.10.26, executor 2, partition 3, PROCESS_LOCAL, 6348730 bytes)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_4_piece0 on 172.16.10.34:46277 in memory (size: 27.5 KB, free: 413.9 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_4_piece0 on 172.16.10.26:38201 in memory (size: 27.5 KB, free: 355.1 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_4_piece0 on 172.16.10.40:36920 in memory (size: 27.5 KB, free: 359.4 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_2_piece0 on 172.16.10.34:46277 in memory (size: 2.6 KB, free: 413.9 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Added broadcast_5_piece0 in memory on 172.16.10.40:36920 (size: 3.3 KB, free: 359.4 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_2_piece0 on 172.16.10.14:37037 in memory (size: 2.6 KB, free: 366.3 MB)
+17/06/02 14:09:21 INFO BlockManagerInfo: Removed broadcast_2_piece0 on 172.16.10.30:40242 in memory (size: 2.6 KB, free: 366.3 MB)
+17/06/02 14:09:21 INFO TaskSetManager: Finished task 0.0 in stage 8.0 (TID 22) in 842 ms on 172.16.10.40 (executor 1) (1/4)
+17/06/02 14:09:22 INFO BlockManagerInfo: Removed broadcast_1_piece0 on 172.16.10.34:46277 in memory (size: 2.4 KB, free: 413.9 MB)
+17/06/02 14:09:22 INFO BlockManagerInfo: Added broadcast_5_piece0 in memory on 172.16.10.26:38201 (size: 3.3 KB, free: 355.1 MB)
+17/06/02 14:09:22 INFO BlockManagerInfo: Removed broadcast_1_piece0 on 172.16.10.40:36920 in memory (size: 2.4 KB, free: 359.4 MB)
+17/06/02 14:09:22 INFO BlockManagerInfo: Removed broadcast_1_piece0 on 172.16.10.14:37037 in memory (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:09:22 INFO BlockManagerInfo: Removed broadcast_1_piece0 on 172.16.10.26:38201 in memory (size: 2.4 KB, free: 355.1 MB)
+17/06/02 14:09:22 INFO TaskSetManager: Finished task 2.0 in stage 8.0 (TID 24) in 1325 ms on 172.16.10.40 (executor 1) (2/4)
+17/06/02 14:09:22 INFO BlockManagerInfo: Removed broadcast_1_piece0 on 172.16.10.30:40242 in memory (size: 2.4 KB, free: 366.3 MB)
+17/06/02 14:09:22 INFO TaskSetManager: Finished task 1.0 in stage 8.0 (TID 23) in 1401 ms on 172.16.10.26 (executor 2) (3/4)
+17/06/02 14:09:22 INFO TaskSetManager: Finished task 3.0 in stage 8.0 (TID 25) in 1381 ms on 172.16.10.26 (executor 2) (4/4)
+17/06/02 14:09:22 INFO TaskSchedulerImpl: Removed TaskSet 8.0, whose tasks have all completed, from pool
+17/06/02 14:09:22 INFO DAGScheduler: ResultStage 8 (collect at CGGen.scala:95) finished in 1.428 s
+17/06/02 14:09:22 INFO DAGScheduler: Job 2 finished: collect at CGGen.scala:95, took 1.466745 s
+17/06/02 14:09:22 INFO SparkContext: Starting job: count at CGGen.scala:101
+17/06/02 14:09:22 INFO DAGScheduler: Got job 3 (count at CGGen.scala:101) with 4 output partitions
+17/06/02 14:09:22 INFO DAGScheduler: Final stage: ResultStage 12 (count at CGGen.scala:101)
+17/06/02 14:09:22 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 11)
+17/06/02 14:09:22 INFO DAGScheduler: Missing parents: List()
+17/06/02 14:09:22 INFO DAGScheduler: Submitting ResultStage 12 (MapPartitionsRDD[32] at filter at CGGen.scala:100), which has no missing parents
+17/06/02 14:09:22 INFO MemoryStore: Block broadcast_6 stored as values in memory (estimated size 5.8 KB, free 413.9 MB)
+17/06/02 14:09:22 INFO MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 3.1 KB, free 413.9 MB)
+17/06/02 14:09:22 INFO BlockManagerInfo: Added broadcast_6_piece0 in memory on 172.16.10.34:46277 (size: 3.1 KB, free: 413.9 MB)
+17/06/02 14:09:22 INFO SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:996
+17/06/02 14:09:22 INFO DAGScheduler: Submitting 4 missing tasks from ResultStage 12 (MapPartitionsRDD[32] at filter at CGGen.scala:100)
+17/06/02 14:09:22 INFO TaskSchedulerImpl: Adding task set 12.0 with 4 tasks
+17/06/02 14:09:22 WARN TaskSetManager: Stage 12 contains a task of very large size (6199 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:09:22 INFO TaskSetManager: Starting task 1.0 in stage 12.0 (TID 26, 172.16.10.26, executor 2, partition 1, PROCESS_LOCAL, 6348645 bytes)
+17/06/02 14:09:22 INFO TaskSetManager: Starting task 0.0 in stage 12.0 (TID 27, 172.16.10.40, executor 1, partition 0, PROCESS_LOCAL, 7028017 bytes)
+17/06/02 14:09:22 INFO TaskSetManager: Starting task 3.0 in stage 12.0 (TID 28, 172.16.10.26, executor 2, partition 3, PROCESS_LOCAL, 6348645 bytes)
+17/06/02 14:09:22 INFO TaskSetManager: Starting task 2.0 in stage 12.0 (TID 29, 172.16.10.40, executor 1, partition 2, PROCESS_LOCAL, 7028017 bytes)
+17/06/02 14:09:22 INFO BlockManagerInfo: Added broadcast_6_piece0 in memory on 172.16.10.40:36920 (size: 3.1 KB, free: 359.4 MB)
+17/06/02 14:09:23 INFO TaskSetManager: Finished task 0.0 in stage 12.0 (TID 27) in 1199 ms on 172.16.10.40 (executor 1) (1/4)
+17/06/02 14:09:23 INFO TaskSetManager: Finished task 2.0 in stage 12.0 (TID 29) in 1166 ms on 172.16.10.40 (executor 1) (2/4)
+17/06/02 14:09:23 INFO BlockManagerInfo: Added broadcast_6_piece0 in memory on 172.16.10.26:38201 (size: 3.1 KB, free: 355.1 MB)
+17/06/02 14:09:23 INFO TaskSetManager: Finished task 1.0 in stage 12.0 (TID 26) in 1269 ms on 172.16.10.26 (executor 2) (3/4)
+17/06/02 14:09:23 INFO TaskSetManager: Finished task 3.0 in stage 12.0 (TID 28) in 1254 ms on 172.16.10.26 (executor 2) (4/4)
+17/06/02 14:09:23 INFO TaskSchedulerImpl: Removed TaskSet 12.0, whose tasks have all completed, from pool
+17/06/02 14:09:23 INFO DAGScheduler: ResultStage 12 (count at CGGen.scala:101) finished in 1.303 s
+17/06/02 14:09:23 INFO DAGScheduler: Job 3 finished: count at CGGen.scala:101, took 1.331902 s
+17/06/02 14:09:23 INFO root:
+
+checkGraph count: 0
+
+17/06/02 14:09:23 INFO FileOutputCommitter: File Output Committer Algorithm version is 1
+17/06/02 14:09:23 INFO SparkContext: Starting job: saveAsTextFile at CGGen.scala:120
+17/06/02 14:09:23 INFO DAGScheduler: Got job 4 (saveAsTextFile at CGGen.scala:120) with 8 output partitions
+17/06/02 14:09:23 INFO DAGScheduler: Final stage: ResultStage 16 (saveAsTextFile at CGGen.scala:120)
+17/06/02 14:09:23 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 15)
+17/06/02 14:09:23 INFO DAGScheduler: Missing parents: List()
+17/06/02 14:09:23 INFO DAGScheduler: Submitting ResultStage 16 (MapPartitionsRDD[34] at saveAsTextFile at CGGen.scala:120), which has no missing parents
+17/06/02 14:09:23 INFO MemoryStore: Block broadcast_7 stored as values in memory (estimated size 75.5 KB, free 413.8 MB)
+17/06/02 14:09:23 INFO MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 27.6 KB, free 413.8 MB)
+17/06/02 14:09:23 INFO BlockManagerInfo: Added broadcast_7_piece0 in memory on 172.16.10.34:46277 (size: 27.6 KB, free: 413.9 MB)
+17/06/02 14:09:23 INFO SparkContext: Created broadcast 7 from broadcast at DAGScheduler.scala:996
+17/06/02 14:09:23 INFO DAGScheduler: Submitting 8 missing tasks from ResultStage 16 (MapPartitionsRDD[34] at saveAsTextFile at CGGen.scala:120)
+17/06/02 14:09:23 INFO TaskSchedulerImpl: Adding task set 16.0 with 8 tasks
+17/06/02 14:09:23 WARN TaskSetManager: Stage 16 contains a task of very large size (6199 KB). The maximum recommended task size is 100 KB.
+17/06/02 14:09:23 INFO TaskSetManager: Starting task 1.0 in stage 16.0 (TID 30, 172.16.10.26, executor 2, partition 1, PROCESS_LOCAL, 6348752 bytes)
+17/06/02 14:09:23 INFO TaskSetManager: Starting task 0.0 in stage 16.0 (TID 31, 172.16.10.40, executor 1, partition 0, PROCESS_LOCAL, 7028124 bytes)
+17/06/02 14:09:23 INFO TaskSetManager: Starting task 3.0 in stage 16.0 (TID 32, 172.16.10.26, executor 2, partition 3, PROCESS_LOCAL, 6348752 bytes)
+17/06/02 14:09:23 INFO TaskSetManager: Starting task 2.0 in stage 16.0 (TID 33, 172.16.10.40, executor 1, partition 2, PROCESS_LOCAL, 7028124 bytes)
+17/06/02 14:09:24 INFO BlockManagerInfo: Added broadcast_7_piece0 in memory on 172.16.10.40:36920 (size: 27.6 KB, free: 359.4 MB)
+17/06/02 14:09:24 INFO TaskSetManager: Starting task 4.0 in stage 16.0 (TID 34, 172.16.10.40, executor 1, partition 4, PROCESS_LOCAL, 7028124 bytes)
+17/06/02 14:09:24 INFO TaskSetManager: Finished task 0.0 in stage 16.0 (TID 31) in 1122 ms on 172.16.10.40 (executor 1) (1/8)
+17/06/02 14:09:25 INFO BlockManagerInfo: Added broadcast_7_piece0 in memory on 172.16.10.26:38201 (size: 27.6 KB, free: 355.1 MB)
+17/06/02 14:09:25 INFO TaskSetManager: Starting task 6.0 in stage 16.0 (TID 35, 172.16.10.40, executor 1, partition 6, PROCESS_LOCAL, 7028124 bytes)
+17/06/02 14:09:25 INFO TaskSetManager: Finished task 4.0 in stage 16.0 (TID 34) in 204 ms on 172.16.10.40 (executor 1) (2/8)
+17/06/02 14:09:25 INFO TaskSetManager: Finished task 2.0 in stage 16.0 (TID 33) in 1266 ms on 172.16.10.40 (executor 1) (3/8)
+17/06/02 14:09:25 INFO TaskSetManager: Starting task 5.0 in stage 16.0 (TID 36, 172.16.10.26, executor 2, partition 5, PROCESS_LOCAL, 6348752 bytes)
+17/06/02 14:09:25 INFO TaskSetManager: Finished task 1.0 in stage 16.0 (TID 30) in 1382 ms on 172.16.10.26 (executor 2) (4/8)
+17/06/02 14:09:25 INFO TaskSetManager: Finished task 3.0 in stage 16.0 (TID 32) in 1344 ms on 172.16.10.26 (executor 2) (5/8)
+17/06/02 14:09:25 INFO TaskSetManager: Starting task 7.0 in stage 16.0 (TID 37, 172.16.10.26, executor 2, partition 7, PROCESS_LOCAL, 6348752 bytes)
+17/06/02 14:09:26 INFO TaskSetManager: Finished task 5.0 in stage 16.0 (TID 36) in 1209 ms on 172.16.10.26 (executor 2) (6/8)
+17/06/02 14:09:26 INFO TaskSetManager: Finished task 6.0 in stage 16.0 (TID 35) in 1266 ms on 172.16.10.40 (executor 1) (7/8)
+17/06/02 14:09:26 INFO TaskSetManager: Finished task 7.0 in stage 16.0 (TID 37) in 1220 ms on 172.16.10.26 (executor 2) (8/8)
+17/06/02 14:09:26 INFO TaskSchedulerImpl: Removed TaskSet 16.0, whose tasks have all completed, from pool
+17/06/02 14:09:26 INFO DAGScheduler: ResultStage 16 (saveAsTextFile at CGGen.scala:120) finished in 2.616 s
+17/06/02 14:09:26 INFO DAGScheduler: Job 4 finished: saveAsTextFile at CGGen.scala:120, took 2.668307 s
+17/06/02 14:09:26 INFO SparkContext: Invoking stop() from shutdown hook
+17/06/02 14:09:26 INFO SparkUI: Stopped Spark web UI at http://172.16.10.34:4040
+17/06/02 14:09:26 INFO StandaloneSchedulerBackend: Shutting down all executors
+17/06/02 14:09:26 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Asking each executor to shut down
+17/06/02 14:09:26 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+17/06/02 14:09:26 INFO MemoryStore: MemoryStore cleared
+17/06/02 14:09:26 INFO BlockManager: BlockManager stopped
+17/06/02 14:09:26 INFO BlockManagerMaster: BlockManagerMaster stopped
+17/06/02 14:09:26 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+17/06/02 14:09:26 INFO SparkContext: Successfully stopped SparkContext
+17/06/02 14:09:26 INFO ShutdownHookManager: Shutdown hook called
+17/06/02 14:09:26 INFO ShutdownHookManager: Deleting directory /tmp/spark-2d98076a-137d-40e2-9f4b-d2fa93e2d666
+Program execution took 51 seconds!

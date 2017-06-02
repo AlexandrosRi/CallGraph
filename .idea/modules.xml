@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/callgraph.iml" filepath="$PROJECT_DIR$/.idea/modules/callgraph.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/callgraph-build.iml" filepath="$PROJECT_DIR$/.idea/modules/callgraph-build.iml" />
     </modules>
   </component>
 </project>

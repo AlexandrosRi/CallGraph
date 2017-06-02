@@ -51,7 +51,7 @@ object CGUtils {
   def getInfoOutOfCU(cu: CompilationUnit):List[String] = {
 
     val classNodes = cu.getChildNodesByType(classOf[ClassOrInterfaceDeclaration]).asScala.toList
-    val methodNodes = cu.getChildNodesByType(classOf[(MethodDeclaration)]).asScala.toList
+    val declNodes = cu.getChildNodesByType(classOf[(MethodDeclaration)]).asScala.toList
     val invocNodes = cu.getChildNodesByType(classOf[MethodCallExpr]).asScala.toList
 
     var clsssI = ""
@@ -61,19 +61,24 @@ object CGUtils {
     }
     clsssI +=":"
 
-    for (meth <- methodNodes){
-//      clsssI += meth.getDeclarationAsString(true,false,false) + "-----"
-      clsssI += meth.getName + ";;;"
-      clsssI += meth.getType + ";;;"
-      clsssI += meth.getModifiers.toString + ";;;"
-      clsssI += meth.getParameters.toArray.mkString(",")
+    for (decl <- declNodes){
+//      clsssI += decl.getDeclarationAsString(true,false,false) + "-----"
+      clsssI += decl.getName + ";;;"
+      clsssI += decl.getType + ";;;"
+      clsssI += decl.getModifiers.toString + ";;;"
+      clsssI += decl.getParameters.toArray.mkString(",")
       clsssI.stripSuffix(",")
+      clsssI += decl.getParameters.size()
       clsssI += "-----"
     }
     clsssI +=":"
 
-    for (expr <- invocNodes){
-      clsssI += expr.getName + "-----"
+    for (invoc <- invocNodes){
+      clsssI += invoc.getName.toString + ";;;"
+      clsssI += invoc.getScope.toString + ";;;"
+      clsssI += invoc.getArguments.asScala.toList.size + ";;;"
+      clsssI += invoc.getBegin.toString
+      clsssI += "-----"
     }
 
     clsssI.split(":").toList
@@ -84,10 +89,18 @@ object CGUtils {
     name.toLowerCase.replace(" ", "").hashCode.toLong
   }
 
-  case class declData(mName: String, mType: String = "No Type", mMods: String = "No mods", mPar: List[String] = List("No pars"))
+  case class declData(mName: String, mType: String = "No Type", mMods: String = "No mods",
+                      mPar: List[String] = List("No pars"), mParNum:Int = 0)
   def getDeclInfo(declAsString: List[String]): List[declData] = {
     val declInfo: List[declData] = declAsString.map(x => {
       x.split(";;;").length match{
+        case 5 =>
+          val xName = x.split(";;;")(0)
+          val xType = x.split(";;;")(1)
+          val xMods = x.split(";;;")(2)
+          val xPars = x.split(";;;")(3).split(",").toList
+          val xParNum = x.split(";;;")(4).toInt
+          declData(xName, xType, xMods, xPars, xParNum)
         case 4 =>
           val xName = x.split(";;;")(0)
           val xType = x.split(";;;")(1)
@@ -111,13 +124,31 @@ object CGUtils {
     declInfo
   }
 
-  def toDot(gra:Option[ClassData]) = {
-
-    val repName = gra.get.fqName
-    val repDecl = gra.get.attrs.map(x => repName + " -> " + x.mName + ";").mkString("\n")
-    val repInv = gra.get.attrs2.map(x => repName + " -> " + x + ";").mkString("\n")
-    val repFinal = "digraph G {\n" + repDecl + repInv +"}"
-
-    println(repFinal)
+  case class invocData(iName: String = "No Name", iScope: String ="", argsNum: Int = 0, pos: String = "0")
+  def getInvocInfo(invocAsString: List[String]): List[invocData] = {
+    val invocInfo: List[invocData] = invocAsString.map(x => {
+      x.split(";;;").length match {
+        case 4 =>
+          val xName = x.split (";;;") (0)
+          val xScope = x.split (";;;") (1)
+          val xArgs = x.split (";;;") (2)
+          val xPos = x.split (";;;") (3)
+          invocData(xName, xScope, xArgs.toInt, xPos)
+        case 3 =>
+          val xName = x.split (";;;") (0)
+          val xScope = x.split (";;;") (1)
+          val xArgs = x.split (";;;") (2)
+          invocData(xName, xScope, xArgs.toInt)
+        case 2 =>
+          val xName = x.split (";;;") (0)
+          val xScope = x.split (";;;") (1)
+          invocData(xName, xScope)
+        case 1 =>
+          val xName = x.split (";;;") (0)
+          invocData(xName)
+      }
+    })
+    invocInfo
   }
+
 }

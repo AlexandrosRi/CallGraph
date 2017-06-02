@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="callgraph" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../target/scala-2.11/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.11/test-classes" />
     <exclude-output />
@@ -17,14 +17,12 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/test" type="java-test-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../../target" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/resolution-cache" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/streams" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: aopalliance:aopalliance:1.0:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.github.javaparser:javaparser-core:3.2.0:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-sources-and-docs">
         <CLASSES />
@@ -43,7 +41,7 @@
     <orderEntry type="library" name="SBT: org.spark-project.spark:unused:1.0.0:jar" level="project" />
     <orderEntry type="library" name="SBT: org.sonatype.sisu.inject:cglib:2.2.1-v20090111:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-log4j12:1.7.16:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.5:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.16:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:jul-to-slf4j:1.7.16:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:jcl-over-slf4j:1.7.16:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scalatest:scalatest_2.11:2.2.6:jar" level="project" />
@@ -166,6 +164,7 @@
     <orderEntry type="library" name="SBT: com.google.guava:guava:14.0.1:jar" level="project" />
     <orderEntry type="library" name="SBT: com.google.code.findbugs:jsr305:1.3.9:jar" level="project" />
     <orderEntry type="library" name="SBT: com.github.rwl:jtransforms:2.4.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.github.javaparser:javaparser-core:3.2.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.github.fommil.netlib:core:1.1.2:jar" level="project" />
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.5:jar" level="project" />
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.module:jackson-module-paranamer:2.6.5:jar" level="project" />
