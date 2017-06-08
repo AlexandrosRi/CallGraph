@@ -1,6 +1,7 @@
 package com.mscis.CGA
 
-import com.github.javaparser.ast.body.MethodDeclaration
+import com.github.javaparser.ast.body.{ClassOrInterfaceDeclaration, MethodDeclaration}
+import com.github.javaparser.ast.expr.{MethodCallExpr, VariableDeclarationExpr}
 import com.mscis.CGA.CGUtils._
 import org.apache.spark.{SparkConf, SparkContext, graphx}
 import org.apache.spark.rdd.RDD
@@ -32,16 +33,18 @@ object CGGen {
     log.info("serialized Info!")
 
 
-    case class InfoData(classFQName: (String, String), declaredMethods: List[CGUtils.declData], invokedMethods: List[CGUtils.invocData])//, declarations: List[MethodDeclaration])
+    case class InfoData(classFQName: (String, String), declaredMethods: List[MethodDeclaration],
+                        invokedMethods: List[MethodCallExpr], declaredVars: List[VariableDeclarationExpr])
 
     val inform = inputdata.map(x => {
 
       val fullName = x._1
       val name = fullName.drop(fullName.lastIndexOf("/"))
       val sourceInfo = getInfo(x._2)
-      val mDeclarations = getDeclInfo(sourceInfo.lift(1).toString.stripSuffix(")").split("-----").toList)
-      val mInvocations = getInvocInfo(sourceInfo.lift(2).toString.stripSuffix(")").split("-----").toList)
-      InfoData((fullName,name), mDeclarations, mInvocations)
+      val mDeclarations = sourceInfo.declNodes
+      val mInvocations = sourceInfo.invocNodes
+      val mFields = sourceInfo.varNodes
+      InfoData((fullName,name), mDeclarations, mInvocations, mFields)
 
       //      val declarations  = getDecls(x._2)
 //      InfoData((fullName,name), mDeclarations, mInvocations, declarations)
@@ -50,19 +53,32 @@ object CGGen {
 
     val classVertices:RDD[(graphx.VertexId, (String,String))] = inform.map(x => (vertexHash(x.classFQName._1), (x.classFQName._2, "class")))
 
-    val methodVerticesList = inform.flatMap(x => x.declaredMethods)
+    val methodVerticesList:RDD[MethodDeclaration] = inform.flatMap(x => x.declaredMethods)
 
-    val collectedMethodVertices = methodVerticesList.collect
+    val collectedMethodVertices = methodVerticesList.map(x => {
+      val hash = declVertexHash(x)
+      val name = x.getNameAsString
+      val num = x.getParameters.size
+      var parent = ""
+      x.getParentNode.get() match {
+        case t : ClassOrInterfaceDeclaration =>
+          parent = t.getNameAsString
+        case _ =>
+      }
+
+      (name, num, parent, hash)
+
+    }).collect
 
 //    val methodObjVertices = inform.flatMap(x => x.declarations)
 
 //    val test: RDD[(graphx.VertexId, MethodDeclaration)]= methodObjVertices.map(x => (vertexHash(x.getName.toString), x))
 
-    val methodVertices:RDD[(graphx.VertexId, (String,String))] = methodVerticesList.map(x => (vertexHash(x.mMods+x.mType+x.mName+x.mPar+x.mPos), (x.mName,"declaration")))
+    val methodVertices:RDD[(graphx.VertexId, (String,String))] = methodVerticesList.map(x => (declVertexHash(x), (x.getNameAsString,"declaration")))
 
     val invocVerticesList = inform.flatMap(x => x.invokedMethods)
 
-    val invocVertices:RDD[(graphx.VertexId, (String,String))] = invocVerticesList.map(x => (vertexHash(x.iName+x.iScope+x.argsNum+x.pos), (x.iName,"invocation")))
+    val invocVertices:RDD[(graphx.VertexId, (String,String))] = invocVerticesList.map(x => (invocVertexHash(x), (x.getNameAsString,"invocation")))
 
     val cmVertices:RDD[(graphx.VertexId, (String,String))]  = classVertices.union(methodVertices)
 
@@ -71,21 +87,20 @@ object CGGen {
     val edgesInv: RDD[Edge[String]] = inform.flatMap { x =>
       val srcVid = vertexHash(x.classFQName._1)
       x.invokedMethods.map({ iMeth =>
-        val dstVid = vertexHash(iMeth.iName+iMeth.iScope+iMeth.argsNum+iMeth.pos)
+        val dstVid = invocVertexHash(iMeth)
         Edge(srcVid, dstVid, "invokes method")
       })
     }
 
-    val edgesDecl: RDD[Edge[String]] = inform.flatMap{ x=>
+
+
+    val edgesDecl: RDD[Edge[String]] = inform.flatMap{ x =>
+
       x.invokedMethods.flatMap{ iMeth =>
-        val srcVid: graphx.VertexId = vertexHash(iMeth.iName+iMeth.iScope+iMeth.argsNum+iMeth.pos)
-        val pairss = collectedMethodVertices.filter(p => {
-          val nameCheck = p.mName == iMeth.iName
-          val parNumCheck = p.mParNum == iMeth.argsNum
-          nameCheck && parNumCheck
-        })
+        val srcVid: graphx.VertexId = invocVertexHash(iMeth)
+        val pairss = collectedMethodVertices.filter(p => checkConnections(iMeth, p, x.declaredVars))
         pairss.map(c => {
-          val dstVid = vertexHash(c.mMods+c.mType+c.mName+c.mPar+c.mPos)
+          val dstVid = c._4
           Edge(srcVid, dstVid, "declared")
         })
       }

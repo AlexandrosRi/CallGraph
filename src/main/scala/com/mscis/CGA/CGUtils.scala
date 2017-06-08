@@ -41,7 +41,7 @@ object CGUtils {
     }
   }
 
-  def getInfo(javaContent: String): List[String] = {
+  def getInfo(javaContent: String): compUnitInfo = {
 
     val cu: CompilationUnit = JavaParser.parse(javaContent)
 
@@ -54,119 +54,69 @@ object CGUtils {
     cu.getChildNodesByType(classOf[MethodDeclaration]).asScala.toList
   }
 
-  def getInfoOutOfCU(cu: CompilationUnit):List[String] = {
+  case class compUnitInfo(classNodes: List[ClassOrInterfaceDeclaration], declNodes: List[MethodDeclaration],
+                          invocNodes: List[MethodCallExpr], varNodes: List[VariableDeclarationExpr])
+
+  def getInfoOutOfCU(cu: CompilationUnit):compUnitInfo = {
 
     val classNodes = cu.getChildNodesByType(classOf[ClassOrInterfaceDeclaration]).asScala.toList
     val declNodes = cu.getChildNodesByType(classOf[(MethodDeclaration)]).asScala.toList
     val invocNodes = cu.getChildNodesByType(classOf[MethodCallExpr]).asScala.toList
-    val fields = cu.getChildNodesByType(classOf[VariableDeclarationExpr]).asScala.toList
+    val fieldNodes = cu.getChildNodesByType(classOf[VariableDeclarationExpr]).asScala.toList
 
-    var clsssI = ""
+    compUnitInfo(classNodes, declNodes, invocNodes, fieldNodes)
+  }
 
-    for (cl <- classNodes) {
-      clsssI += cl.getName + "-----"
-    }
-    clsssI +=":"
+  def declVertexHash(decl: MethodDeclaration): VertexId = {
 
-    for (decl <- declNodes){
-//      clsssI += decl.getDeclarationAsString(true,false,false) + "-----"
-      clsssI += decl.getName + ";;;"
-      clsssI += decl.getType + ";;;"
-      clsssI += decl.getModifiers.toString + ";;;"
-      clsssI += decl.getParameters.toArray.mkString(",")
-      clsssI.stripSuffix(",")
-      clsssI += decl.getParameters.size()
-      clsssI += decl.getBegin.toString
-      clsssI += "-----"
-    }
-    clsssI +=":"
+    val str = decl.getModifiers.toString + decl.getType.toString + decl.getName.toString +
+              decl.getParameters.toArray.mkString(",").stripSuffix(",") +
+              decl.getParameters.size().toString
 
-    for (invoc <- invocNodes){
-      clsssI += invoc.getName.toString + ";;;"
-      clsssI += invoc.getScope.toString + ";;;"
-      if (invoc.getScope.isPresent) {
-      }
-      clsssI += invoc.getArguments.asScala.toList.size + ";;;"
-      clsssI += invoc.getBegin.toString
-      clsssI += "-----"
-    }
+    vertexHash(str)
+  }
 
-    clsssI.split(":").toList
+  def invocVertexHash(invoc: MethodCallExpr): VertexId = {
 
+    val str = invoc.getNameAsString + invoc.getScope.toString + invoc.getArguments.size() +
+              invoc.getBegin.toString
+
+    vertexHash(str)
   }
 
   def vertexHash(name: String): VertexId = {
     name.toLowerCase.replace(" ", "").hashCode.toLong
   }
 
-  case class declData(mName: String, mType: String = "No Type", mMods: String = "No mods",
-                      mPar: List[String] = List("No pars"), mParNum: Int = 0, mPos: String = "0")
-  def getDeclInfo(declAsString: List[String]): List[declData] = {
-    val declInfo: List[declData] = declAsString.map(x => {
-      x.split(";;;").length match{
-        case 6 =>
-          val xName = x.split(";;;")(0)
-          val xType = x.split(";;;")(1)
-          val xMods = x.split(";;;")(2)
-          val xPars = x.split(";;;")(3).split(",").toList
-          val xParNum = x.split(";;;")(4).toInt
-          val xPos = x.split(";;;")(5)
-          declData(xName, xType, xMods, xPars, xParNum, xPos)
-        case 5 =>
-          val xName = x.split(";;;")(0)
-          val xType = x.split(";;;")(1)
-          val xMods = x.split(";;;")(2)
-          val xPars = x.split(";;;")(3).split(",").toList
-          val xParNum = x.split(";;;")(4).toInt
-          declData(xName, xType, xMods, xPars, xParNum)
-        case 4 =>
-          val xName = x.split(";;;")(0)
-          val xType = x.split(";;;")(1)
-          val xMods = x.split(";;;")(2)
-          val xPars = x.split(";;;")(3).split(",").toList
-          declData(xName, xType, xMods, xPars)
-        case 3 =>
-          val xName = x.split(";;;")(0)
-          val xType = x.split(";;;")(1)
-          val xMods = x.split(";;;")(2)
-          declData(xName, xType, xMods)
-        case 2 =>
-          val xName = x.split(";;;")(0)
-          val xType = x.split(";;;")(1)
-          declData(xName, xType)
-        case 1 =>
-          val xName = x.split(";;;")(0)
-          declData(xName)
-      }
-    })
-    declInfo
+  def checkConnections(invoc: MethodCallExpr, decl: (String, Int, String, Long),
+                       vars: List[VariableDeclarationExpr]): Boolean = {
+    val nameCheck = invoc.getNameAsString == decl._1
+    val parNumCheck = decl._2 == invoc.getArguments.size
+
+    if (invoc.getScope.isPresent){
+
+
+
+      val elemTypeCheck = checkFieldType(invoc, decl._3, vars)
+
+      nameCheck && parNumCheck && elemTypeCheck
+    }
+    else nameCheck && parNumCheck
+
   }
 
-  case class invocData(iName: String = "No Name", iScope: String ="", argsNum: Int = 0, pos: String = "0")
-  def getInvocInfo(invocAsString: List[String]): List[invocData] = {
-    val invocInfo: List[invocData] = invocAsString.map(x => {
-      x.split(";;;").length match {
-        case 4 =>
-          val xName = x.split (";;;") (0)
-          val xScope = x.split (";;;") (1)
-          val xArgs = x.split (";;;") (2)
-          val xPos = x.split (";;;") (3)
-          invocData(xName, xScope, xArgs.toInt, xPos)
-        case 3 =>
-          val xName = x.split (";;;") (0)
-          val xScope = x.split (";;;") (1)
-          val xArgs = x.split (";;;") (2)
-          invocData(xName, xScope, xArgs.toInt)
-        case 2 =>
-          val xName = x.split (";;;") (0)
-          val xScope = x.split (";;;") (1)
-          invocData(xName, xScope)
-        case 1 =>
-          val xName = x.split (";;;") (0)
-          invocData(xName)
+  def checkFieldType(invoc: MethodCallExpr, declParent: String,
+                     vars: List[VariableDeclarationExpr]): Boolean = {
+    var elemTypeCheck = false
+    val vDecl = vars.iterator
+    while (vDecl.hasNext && !elemTypeCheck) {
+      val vDec = vDecl.next()
+      if (vDec.getVariable(0).getNameAsString == invoc.getScope.get().toString) {
+        elemTypeCheck = declParent == vDec.getElementType.toString
+
       }
-    })
-    invocInfo
+    }
+    elemTypeCheck
   }
 
 }
