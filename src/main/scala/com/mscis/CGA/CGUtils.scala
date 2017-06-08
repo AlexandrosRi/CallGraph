@@ -6,7 +6,7 @@ import java.util.stream.Collectors
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.{ClassOrInterfaceDeclaration, MethodDeclaration}
-import com.github.javaparser.ast.expr.MethodCallExpr
+import com.github.javaparser.ast.expr.{MethodCallExpr, VariableDeclarationExpr}
 import org.apache.spark.graphx._
 
 import scala.collection.JavaConverters._
@@ -48,11 +48,18 @@ object CGUtils {
     getInfoOutOfCU(cu)
   }
 
+  def getDecls(javaContent: String): List[MethodDeclaration] = {
+    val cu: CompilationUnit = JavaParser.parse(javaContent)
+
+    cu.getChildNodesByType(classOf[MethodDeclaration]).asScala.toList
+  }
+
   def getInfoOutOfCU(cu: CompilationUnit):List[String] = {
 
     val classNodes = cu.getChildNodesByType(classOf[ClassOrInterfaceDeclaration]).asScala.toList
     val declNodes = cu.getChildNodesByType(classOf[(MethodDeclaration)]).asScala.toList
     val invocNodes = cu.getChildNodesByType(classOf[MethodCallExpr]).asScala.toList
+    val fields = cu.getChildNodesByType(classOf[VariableDeclarationExpr]).asScala.toList
 
     var clsssI = ""
 
@@ -69,6 +76,7 @@ object CGUtils {
       clsssI += decl.getParameters.toArray.mkString(",")
       clsssI.stripSuffix(",")
       clsssI += decl.getParameters.size()
+      clsssI += decl.getBegin.toString
       clsssI += "-----"
     }
     clsssI +=":"
@@ -76,6 +84,8 @@ object CGUtils {
     for (invoc <- invocNodes){
       clsssI += invoc.getName.toString + ";;;"
       clsssI += invoc.getScope.toString + ";;;"
+      if (invoc.getScope.isPresent) {
+      }
       clsssI += invoc.getArguments.asScala.toList.size + ";;;"
       clsssI += invoc.getBegin.toString
       clsssI += "-----"
@@ -90,10 +100,18 @@ object CGUtils {
   }
 
   case class declData(mName: String, mType: String = "No Type", mMods: String = "No mods",
-                      mPar: List[String] = List("No pars"), mParNum:Int = 0)
+                      mPar: List[String] = List("No pars"), mParNum: Int = 0, mPos: String = "0")
   def getDeclInfo(declAsString: List[String]): List[declData] = {
     val declInfo: List[declData] = declAsString.map(x => {
       x.split(";;;").length match{
+        case 6 =>
+          val xName = x.split(";;;")(0)
+          val xType = x.split(";;;")(1)
+          val xMods = x.split(";;;")(2)
+          val xPars = x.split(";;;")(3).split(",").toList
+          val xParNum = x.split(";;;")(4).toInt
+          val xPos = x.split(";;;")(5)
+          declData(xName, xType, xMods, xPars, xParNum, xPos)
         case 5 =>
           val xName = x.split(";;;")(0)
           val xType = x.split(";;;")(1)

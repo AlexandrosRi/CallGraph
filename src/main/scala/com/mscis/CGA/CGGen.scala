@@ -1,11 +1,10 @@
 package com.mscis.CGA
 
+import com.github.javaparser.ast.body.MethodDeclaration
 import com.mscis.CGA.CGUtils._
-
 import org.apache.spark.{SparkConf, SparkContext, graphx}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.graphx._
-
 import org.apache.log4j.{Level, LogManager}
 //import org.apache.spark.sql._
 
@@ -20,7 +19,8 @@ object CGGen {
     val sc = new SparkContext(conf)
     val inputSM = "/home/alx/dpl/input"
 
-    val hdfsServ = "172.16.10.34"
+//    val hdfsServ = "172.16.10.34" //lab hadoop server
+    val hdfsServ = "192.168.1.9"  //home hadoop server
     val hdfsPath = "hdfs://" + hdfsServ + ":9000/user/alx/"
     val output = hdfsPath + "output"
 
@@ -32,25 +32,33 @@ object CGGen {
     log.info("serialized Info!")
 
 
-    case class InfoData(classFQName: (String, String), declaredMethods: List[CGUtils.declData], invokedMethods: List[CGUtils.invocData])
+    case class InfoData(classFQName: (String, String), declaredMethods: List[CGUtils.declData], invokedMethods: List[CGUtils.invocData])//, declarations: List[MethodDeclaration])
 
     val inform = inputdata.map(x => {
 
       val fullName = x._1
       val name = fullName.drop(fullName.lastIndexOf("/"))
       val sourceInfo = getInfo(x._2)
-      val mDeclarations = getDeclInfo(sourceInfo.lift(1).toString.split("-----").toList)
-      val mInvocations = getInvocInfo(sourceInfo.lift(2).toString.split("-----").toList)
+      val mDeclarations = getDeclInfo(sourceInfo.lift(1).toString.stripSuffix(")").split("-----").toList)
+      val mInvocations = getInvocInfo(sourceInfo.lift(2).toString.stripSuffix(")").split("-----").toList)
       InfoData((fullName,name), mDeclarations, mInvocations)
+
+      //      val declarations  = getDecls(x._2)
+//      InfoData((fullName,name), mDeclarations, mInvocations, declarations)
 
     })
 
     val classVertices:RDD[(graphx.VertexId, (String,String))] = inform.map(x => (vertexHash(x.classFQName._1), (x.classFQName._2, "class")))
 
     val methodVerticesList = inform.flatMap(x => x.declaredMethods)
+
     val collectedMethodVertices = methodVerticesList.collect
 
-    val methodVertices:RDD[(graphx.VertexId, (String,String))] = methodVerticesList.map(x => (vertexHash(x.mMods+x.mType+x.mName+x.mPar), (x.mName,"declaration")))
+//    val methodObjVertices = inform.flatMap(x => x.declarations)
+
+//    val test: RDD[(graphx.VertexId, MethodDeclaration)]= methodObjVertices.map(x => (vertexHash(x.getName.toString), x))
+
+    val methodVertices:RDD[(graphx.VertexId, (String,String))] = methodVerticesList.map(x => (vertexHash(x.mMods+x.mType+x.mName+x.mPar+x.mPos), (x.mName,"declaration")))
 
     val invocVerticesList = inform.flatMap(x => x.invokedMethods)
 
@@ -71,21 +79,18 @@ object CGGen {
     val edgesDecl: RDD[Edge[String]] = inform.flatMap{ x=>
       x.invokedMethods.flatMap{ iMeth =>
         val srcVid: graphx.VertexId = vertexHash(iMeth.iName+iMeth.iScope+iMeth.argsNum+iMeth.pos)
-        if (srcVid == -233922518) println("\n\n\nmakeReference id: "+srcVid+ "\nname: " + iMeth.iName+"\n\n\n")
-
         val pairss = collectedMethodVertices.filter(p => {
           val nameCheck = p.mName == iMeth.iName
           val parNumCheck = p.mParNum == iMeth.argsNum
           nameCheck && parNumCheck
         })
         pairss.map(c => {
-          val dstVid = vertexHash(c.mMods+c.mType+c.mName+c.mPar)
+          val dstVid = vertexHash(c.mMods+c.mType+c.mName+c.mPar+c.mPos)
           Edge(srcVid, dstVid, "declared")
         })
       }
     }
-//log.info("edges Decl count: "+edgesDecl.count)
-//    classVertices.filter(x => x._2._2=="class")
+    //log.info("edges Decl count: "+edgesDecl.count)
 
     val edges = edgesDecl.union(edgesInv)
 
@@ -95,79 +100,24 @@ object CGGen {
     val fx = finalGraph.triplets
     fx.saveAsTextFile(output+"/graph")
 
-
-
-
     val pdfPagesEdges = fx.filter(x => x.srcId == 2139746722)
     val dstVids = pdfPagesEdges.map(x => x.dstId.toLong).collect()
-//    println("\n\n\nAbout to print dstVids")
-//    dstVids.foreach(println(_))
-//    println("Just printed dstVids\n\n\n")
-//    val checkGraph = finalGraph.subgraph(vpred = (id, attrs) =>  dstVids.contains(id))
+
+    //DEBUG
+    /*
+    println("\n\n\nAbout to print dstVids")
+    dstVids.foreach(println(_))
+    println("Just printed dstVids\n\n\n")
+    */
+
     val checkGraph = fx.filter(x => dstVids.contains(x.srcId))
-//    log.info("\n\ncheckGraph count: " + checkGraph.count+"\n")
 
-
-
-//    val temp = fx.filter(c => {
-//      val temp2 = dstVids.filter(x => x==c.srcId)
-//      !temp2.isEmpty
-//    })
-//    log.info("\ntemp count: " + temp.count+"\n")
-
-/*
-    val fullPPE: RDD[EdgeTriplet[(String,String),String]] = pdfPagesEdges.map(u => {
-      val src = u.dstId
-      finalGraph.triplets.filter(c => c.srcId == src)
-    })
-*/
     // TODO: checkgraph.count
 
     val findataset : RDD[EdgeTriplet[(String,String), String]] = pdfPagesEdges.union(checkGraph)
+    val dotFile = findataset.map(x => x.srcAttr._1 + " -> " + x.dstAttr._1 + "\n")
+    dotFile.saveAsTextFile(output + "/digraph")
     findataset.saveAsTextFile(output + "/test")
-
-
-
-
-
-//    val test = finalGraph.subgraph(vpred = (id, attr) => attr._1=="/TableCellLayoutManager")
-
-
-
-
-    /*val initialMsg = "digraph G {\n"
-
-    def vprog(vertexId: VertexId, value:(String, String), message: String): String = {
-      if (value._2=="class"){
-        message + value._1 + " -> "
-      } else if (value._2=="invocation") {
-          if(message != initialMsg) {
-            message + value._1 + " -> "
-          } else
-            value._1 +"->"
-      }
-
-    }
-
-    def sendMsg() = {
-
-    }
-
-    def mergeMsg() = {
-
-    }
-
-    val sssp = finalGraph.pregel(initialMsg)(vprog, sendMsg, mergeMsg)*/
-
-
-    /*val graph1 = Graph.fromEdges(edgesInv, "a")
-
-    val graph2 = Graph.fromEdges(edgesNew, "a")
-
-    */
-
-
-
 
     /*
     results in the form
